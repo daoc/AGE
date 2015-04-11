@@ -9,7 +9,7 @@ import java.util.List;
  * @author dordonez@ute.edu.ec
  */
 public class CruceInterno implements Cruce {
-    private double probabilidadCruceInterno;
+    private final double probabilidadCruceInterno;
     
     public CruceInterno(double probabilidadCruceInterno) {
         this.probabilidadCruceInterno = probabilidadCruceInterno;

@@ -15,10 +15,8 @@ public class Poblacion {
     private Reporte reporte;
     private Integer numIndividuos;
     private Integer numAtributos;
-    private Integer minValorAtr;
-    private Integer maxValorAtr;
-    private boolean atributosUnicos;
     private List<Individuo> poblacion;
+    private Generacion generacion;
     private FuncionAptitud f;
     private Seleccion seleccion;
     private Cruce cruce;
@@ -81,7 +79,7 @@ public class Poblacion {
             for(int j = 0; j < numAtributos; j++) {
                 if(random.nextDouble() <= probMutacion) {
                     getIndividuo(i).getAtributos()[j] =
-                        random.nextInt(maxValorAtr - minValorAtr + 1) + minValorAtr;
+                        generacion.generarNuevoValorIndividuo(this, getIndividuo(i), j);
                 }
             }
         }
@@ -107,14 +105,7 @@ public class Poblacion {
     }
     
     private void generarPoblacion() {
-        for(int i = 0; i < numIndividuos; i++) {
-            int[] atributos = new int[numAtributos];
-            for(int j = 0; j < numAtributos; j++) {
-                int num = random.nextInt(maxValorAtr - minValorAtr + 1) + minValorAtr;
-                atributos[j] = num;
-            }           
-            poblacion.add(new Individuo(atributos));
-        }
+        poblacion = generacion.generarPoblacionInicial(this);
     } 
     
     public List<Individuo> getPoblacion() {
@@ -132,14 +123,6 @@ public class Poblacion {
     public Integer getNumAtributos() {
         return numAtributos;
     }
-
-    public Integer getMinValorAtr() {
-        return minValorAtr;
-    }
-
-    public Integer getMaxValorAtr() {
-        return maxValorAtr;
-    }
     
     public int getNumGeneraciones() {
         return numGeneraciones;
@@ -152,11 +135,7 @@ public class Poblacion {
     public double getTasaElitismo() {
         return tasaElitismo;
     }
-
-    public FuncionAptitud getFuncionAptitud() {
-        return f;
-    }
-    
+   
     public Individuo getMasApto() {
         return getIndividuo(0);
     }
@@ -186,6 +165,10 @@ public class Poblacion {
         return this;
     }
     
+    public FuncionAptitud getFuncionAptitud() {
+        return f;
+    }    
+    
     public Poblacion setMetaAptitud(int metaAptitud) {
         this.metaAptitud = metaAptitud;
         return this;
@@ -204,10 +187,8 @@ public class Poblacion {
         return this;
     }     
     
-    public Poblacion setParametrosIndividuos(int numAtributos, int minValorAtr, int maxValorAtr) {
+    public Poblacion setNumAtributos(int numAtributos) {
         this.numAtributos = numAtributos;
-        this.minValorAtr = minValorAtr;
-        this.maxValorAtr = maxValorAtr;
         return this;
     }
     
@@ -216,13 +197,31 @@ public class Poblacion {
         return this;
     }
     
+    public Poblacion setMetodoGeneracion(Generacion generacion) {
+        this.generacion = generacion;
+        return this;
+    }    
+    
+    public Generacion getMetodoGeneracion() {
+        return generacion;
+    }
+    
     public Poblacion setMetodoSeleccion(Seleccion seleccion) {
         this.seleccion = seleccion;
         return this;
+    }    
+    
+    public Seleccion getMetodoSeleccion() {
+        return seleccion;
     }    
     
     public Poblacion setMetodoCruce(Cruce cruce) {
         this.cruce = cruce;
         return this;
     }     
+    
+    public Cruce getMetodoCruce() {
+        return cruce;
+    }       
+    
 }

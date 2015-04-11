@@ -2,6 +2,7 @@
 package daoc.age.ejemplos;
 
 import daoc.age.CrucePareja;
+import daoc.age.GeneracionLibre;
 import daoc.age.Poblacion;
 import daoc.age.SeleccionRuleta;
 
@@ -21,14 +22,15 @@ public class NReinas {
         
         Poblacion poblacion = new Poblacion()
             .setNumIndividuos(100)
+            .setNumAtributos(N)
+            .setMaxTiempoCalculo(0, 1, 0)
+            .setProbabilidadMutacion(0.02)
+            .setTasaElitismo(0.05)   
+            .setMetaAptitud(0)                
             .setFuncionAptitud(new FuncionAptitudNReinas(N))
+            .setMetodoGeneracion(new GeneracionLibre(N))
             .setMetodoSeleccion(new SeleccionRuleta())
             .setMetodoCruce(new CrucePareja())
-            .setMetaAptitud(0)
-            .setMaxTiempoCalculo(0, 1, 0)
-            .setParametrosIndividuos(N, 1, N)
-            .setProbabilidadMutacion(0.02)
-            .setTasaElitismo(0.05)
             .setReporteador(new ReporteNReinas());
         
         poblacion.evolucionar();

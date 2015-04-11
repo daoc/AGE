@@ -3,6 +3,8 @@ package daoc.age.ejemplos;
 
 import daoc.age.CruceInterno;
 import daoc.age.CrucePareja;
+import daoc.age.GeneracionLibre;
+import daoc.age.GeneracionUnicos;
 import daoc.age.Poblacion;
 import daoc.age.SeleccionRango;
 /**
@@ -21,14 +23,17 @@ public class Ordenar {
         
         Poblacion poblacion = new Poblacion()
             .setNumIndividuos(100)
-            .setFuncionAptitud(new FuncionAptitudOrdenar(N))
-            .setMetodoSeleccion(new SeleccionRango())
-            .setMetodoCruce(new CruceInterno(0.5))
-            .setMetaAptitud(N)
+            .setNumAtributos(N)
             .setMaxTiempoCalculo(0, 1, 0)
-            .setParametrosIndividuos(N, 1, N)//enteros entre 1 y N
             .setProbabilidadMutacion(0.02)
-            .setTasaElitismo(0.05);
+            .setTasaElitismo(0.05)
+            .setMetaAptitud(N)
+            .setFuncionAptitud(new FuncionAptitudOrdenar(N))
+            .setMetodoGeneracion(new GeneracionUnicos())
+            .setMetodoSeleccion(new SeleccionRango())
+            .setMetodoCruce(new CruceInterno(0.5));
+            
+
         
         poblacion.evolucionar();
     }

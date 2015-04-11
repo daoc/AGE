@@ -13,7 +13,7 @@ public class ReporteNReinas extends Reporte {
     public void reportarFinal() {
         super.reportarFinal();
         int[] data = getPoblacion().getMasApto().getAtributos();
-        for(int i = getPoblacion().getMinValorAtr(); i <= getPoblacion().getMaxValorAtr(); i++) {
+        for(int i = 0; i <= getPoblacion().getNumAtributos(); i++) {
             for(int j = 0; j < data.length; j++) {
                 if(data[j] == i) {
                     System.out.print("X ");
