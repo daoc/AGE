@@ -98,7 +98,6 @@ public class Poblacion {
     }
     
     private void cruzarIndividuos() {
-        Collections.shuffle(poblacion);
         poblacion = cruce.cruzarPoblacion(this);
     }
     

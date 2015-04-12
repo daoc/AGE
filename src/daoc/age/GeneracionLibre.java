@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author dordonez
+ * Genera una población donde los valores de los atributos son un aleatorio
+ * entre [0, N[.
+ * @author dordonez@ute.edu.ec
  */
 public class GeneracionLibre implements Generacion {
     private final int maxValorAtributo;
@@ -19,6 +20,12 @@ public class GeneracionLibre implements Generacion {
         this.maxValorAtributo = maxValorAtributo;
     }
     
+    /**
+     * Genera una población donde los valores de los atributos son un aleatorio
+     * entre [0, N[.
+     * @param poblacion permite obtener los parámetros generales de la población
+     * @return una nueva lista de individuos
+     */
     @Override
     public List<Individuo> generarPoblacionInicial(Poblacion poblacion) {
         List<Individuo> poblacionInicial = new ArrayList<>(poblacion.getNumIndividuos());

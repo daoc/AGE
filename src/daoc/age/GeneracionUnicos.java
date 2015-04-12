@@ -5,25 +5,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author dordonez
+ * Genera una población donde, por cada individuo, sus atributos no tienen valores duplicados:
+ * Por cada x, y en individuo.atributos, x != y 
+ * Los individuos, sin embargo, son creados con los mismos valores de base: [0 - N[ 
+ * @author dordonez@ute.edu.ec
  */
 public class GeneracionUnicos implements Generacion {
     
     /**
      * 
      * se generarán valores entre [0 - poblacion.getNumAtributos()[
-     * ningún valor de los atributos se puede repetir
+     * ningún valor de los atributos se puede repetir en un individuo
      */    
     @Override
     public List<Individuo> generarPoblacionInicial(Poblacion poblacion) {
         List<Individuo> poblacionInicial = new ArrayList<>(poblacion.getNumIndividuos());
         
+        //Crea arreglo con los valores únicos entre [0 - N[
         int[] valoresBase = new int[poblacion.getNumAtributos()];
         for(int i = 0; i < valoresBase.length; i++) {
             valoresBase[i] = i;
         }  
         
+        //Genera los individuos. Cada uno ha sido barajado aleatoriamente
         for(int ind = 0; ind < poblacion.getNumIndividuos(); ind++) {
             //mezcla el arreglo
             int index, temp;
@@ -39,8 +43,9 @@ public class GeneracionUnicos implements Generacion {
     }
 
     /**
-     * En esta implementación este método debe devolver el mismo número.
-     * caso contrario los valores ya no serían únicos
+     * En esta implementación este método debe devolver el mismo valor,
+     * caso contrario los valores ya no serían únicos. Equivale a una 
+     * probabilidad de mutación de 0.0
      */
     @Override
     public int generarNuevoValorIndividuo(Poblacion poblacion, Individuo individuo, int indiceAtributo) {

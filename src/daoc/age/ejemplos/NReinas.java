@@ -7,13 +7,21 @@ import daoc.age.Poblacion;
 import daoc.age.SeleccionRuleta;
 
 /**
- *
+ * Encuentra una solución para el problema de las N reinas.
+ * Evaluación: {@link FuncionAptitudNReinas} <br>
+ * Generación: {@link GeneracionLibre} <br>
+ * Selección: {@link SeleccionRuleta} <br>
+ * Cruce: {@link CrucePareja} <br>
+ * Reporteador: {@link ReporteNReinas} <br>
  * @author dordonez@ute.edu.ec
  */
 public class NReinas {
-    public static int N = 8;//número de reinas por defecto
     /**
-     * @param args número de reinas en args[0]
+     * Número de reinas. El valor por defecto es 8
+     */
+    public static int N = 8;
+    /**
+     * @param args Si existe args[0] se toma este valor para {@link #N}
      */
     public static void main(String[] args) {
         if(args.length > 0) {

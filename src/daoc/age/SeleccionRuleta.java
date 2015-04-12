@@ -8,7 +8,8 @@ import java.util.List;
 /**
  * Selecciona nueva población de igual talla que la población original
  * utiliza el método de ruleta con probabilidad proporcional al valor
- * de la aptitud
+ * de la aptitud.
+ * Ej: probabilidad(i) = aptitud(i) / Sum(aptitud([0 - N[))
  * @author dordonez@ute.edu.ec
  */
 public class SeleccionRuleta extends Seleccion {

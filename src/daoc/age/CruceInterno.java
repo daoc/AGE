@@ -5,12 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Cruza cada individuo consigo mismo permutando aleatoriamente los valores de 
+ * sus atributos para garantizar que no se repitan. Ej: abcdefg =&gt; edcfgba
+ * Cada atributo intercambia sus valores con una probabilidad probabilidadCruceInterno
  * @author dordonez@ute.edu.ec
  */
 public class CruceInterno implements Cruce {
     private final double probabilidadCruceInterno;
     
+    /**
+     * 
+     * @param probabilidadCruceInterno probabilidad de que el valor de un atributo
+     * se intercambie con el de otro atributo cualquiera
+     */
     public CruceInterno(double probabilidadCruceInterno) {
         this.probabilidadCruceInterno = probabilidadCruceInterno;
     }

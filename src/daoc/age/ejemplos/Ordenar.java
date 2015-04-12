@@ -2,19 +2,26 @@
 package daoc.age.ejemplos;
 
 import daoc.age.CruceInterno;
-import daoc.age.CrucePareja;
-import daoc.age.GeneracionLibre;
 import daoc.age.GeneracionUnicos;
 import daoc.age.Poblacion;
 import daoc.age.SeleccionRango;
 /**
- * Encuentra una lista de N enteros ordenada de menor a mayor
+ * Encuentra una lista de N enteros entre [0 - N[, ordenados de menor a mayor.
+ * Los enteros no se repiten al interior de cada individuo.<br>
+ * Ordenamiento: {@link FuncionAptitudOrdenar} <br>
+ * Generación: {@link GeneracionUnicos} <br>
+ * Selección: {@link SeleccionRango} <br>
+ * Cruce: {@link CruceInterno} <br>
  * @author dordonez@ute.edu.ec
  */
 public class Ordenar {
-    public static int N = 10;//cantidad de enteros a ordenar
     /**
-     * @param args cantidad de números a ordenar en args[0]
+     * Cantidad de enteros a ordenar y rango máximo de los enteros: [0 - N[.
+     * El valor por defecto es 10.
+     */
+    public static int N = 10;
+    /**
+     * @param args Si existe args[0] se usa este valor para {@link #N}
      */
     public static void main(String[] args) {
         if(args.length > 0) {
@@ -32,8 +39,6 @@ public class Ordenar {
             .setMetodoGeneracion(new GeneracionUnicos())
             .setMetodoSeleccion(new SeleccionRango())
             .setMetodoCruce(new CruceInterno(0.5));
-            
-
         
         poblacion.evolucionar();
     }

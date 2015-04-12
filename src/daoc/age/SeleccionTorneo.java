@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Para seleccionar a cada nuevo individuo se escoge al azar dos individuos de
+ * la población original y se escoge al más apto con una probabilidad de
+ * probSeleccionMasApto. Caso contrario se escoge al menos apto.
  * @author dordonez@ute.edu.ec
  */
 public class SeleccionTorneo extends Seleccion {
