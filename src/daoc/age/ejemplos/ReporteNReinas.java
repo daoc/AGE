@@ -8,6 +8,7 @@ import daoc.age.Reporte;
  * @author dordonez@ute.edu.ec
  */
 public class ReporteNReinas extends Reporte {
+    public static final char PUNTO_MEDIO = 183;
     
     @Override
     public void reportarFinal() {
@@ -18,7 +19,7 @@ public class ReporteNReinas extends Reporte {
                 if(data[j] == i) {
                     System.out.print("X ");
                 } else {
-                    System.out.print((char)183 + " ");
+                    System.out.print(PUNTO_MEDIO + " ");
                 }
             }
             System.out.println("");
