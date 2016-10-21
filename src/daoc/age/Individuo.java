@@ -33,4 +33,10 @@ public class Individuo implements Comparable<Individuo> {
     public int compareTo(Individuo o) {
         return getAptitud() - o.getAptitud();
     }
+    
+    public Individuo clonar() {
+        Individuo i = new Individuo(getAtributos().clone());
+        i.setAptitud(aptitud);
+        return i;
+    }
 }

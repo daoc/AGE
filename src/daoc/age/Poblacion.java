@@ -14,6 +14,7 @@ public class Poblacion {
     // General
     public final Random random;
     private List<Individuo> poblacion;
+    private List<Individuo> elite;
     private final Long tiempoInicio;
     private int numGeneraciones;
     // Parámetros
@@ -41,6 +42,7 @@ public class Poblacion {
     
     public Poblacion evolucionar() {
         poblacion = new ArrayList<>(numIndividuos);
+        elite = new ArrayList<>();
         generarPoblacion();
         evaluarPoblacion();
         while(!isCondicionFinAlcanzada()) {
@@ -87,6 +89,11 @@ public class Poblacion {
         for(Individuo i : poblacion) {
             i.setAptitud(f.aptitudIndividuo(i));
         }
+        //Añadimos la élite guardada en la nueva población
+        //y vaciamos dicha élite para actualizarla
+        poblacion.addAll(elite);
+        elite.clear();
+        //Ordenamos del más apto(mejor) al menos apto(peor)
         Collections.sort(poblacion);
         if(f.isOrdenNatural()) {
             Collections.reverse(poblacion);
@@ -219,6 +226,10 @@ public class Poblacion {
     public List<Individuo> getPoblacion() {
         return poblacion;
     }
+    
+    public List<Individuo> getElite() {
+        return elite;
+    }    
     
     public Individuo getIndividuo(int indice) {
         return poblacion.get(indice);

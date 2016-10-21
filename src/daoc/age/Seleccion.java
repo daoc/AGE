@@ -50,6 +50,8 @@ public abstract class Seleccion {
         List<Individuo> elitePoblacion = new ArrayList<>(tallaElite);
         for(int indice = 0 ; indice < tallaElite; indice++) {
             elitePoblacion.add(poblacion.getIndividuo(indice));
+            //Guarda la élite para que no se pierdan los mejores individuos
+            poblacion.getElite().add(poblacion.getIndividuo(indice).clonar());
         }
         return elitePoblacion;
     }
