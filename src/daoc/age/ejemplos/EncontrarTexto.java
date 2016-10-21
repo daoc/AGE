@@ -11,24 +11,25 @@ import daoc.age.Poblacion;
  * Cruce: {@link CruceInterno} <br>
  * @author dordonez@ute.edu.ec
  */
-public class Ordenar {
+public class EncontrarTexto {
     /**
      * Cantidad de enteros a ordenar y rango máximo de los enteros: [1 - N].
      * El valor por defecto es 6.
      */
-    public static int N = 6;
+    public static String TXT = "Este es el texto Karamazov";
     /**
      * @param args Si existe args[0] se usa este valor para {@link #N}
      */
     public static void main(String[] args) {
         if(args.length > 0) {
-            N = Integer.parseInt(args[0]);
+            TXT = args[0];
         }
         
         Poblacion poblacion = new Poblacion()
-            .setAtributos(N, 1, N)
-            .setMetaAptitud(N)
-            .setFuncionAptitud(new FuncionAptitudOrdenar(N));
+            .setAtributos(TXT.length(), 32, 126)
+            .setMetaAptitud(TXT.length())
+            .setFuncionAptitud(new FuncionAptitudEncontrarTexto(TXT))
+                .setReporteador(new ReporteEncontrarTexto());
 
         poblacion.evolucionar();
     }

@@ -37,15 +37,10 @@ public class Timetable {
         creaClases();
         
         Poblacion poblacion = new Poblacion()
-            .setNumIndividuos(100)
-            .setNumAtributos(N)
-            .setMaxTiempoCalculo(0, 1, 0)
-            .setProbabilidadMutacion(0.02)
-            .setTasaElitismo(0.05)   
+            .setAtributos(N, 0, N-1)
             .setMetaAptitud(0)                
             .setFuncionAptitud(new FuncionAptitudTimetable())
             .setMetodoGeneracion(new GeneracionUnicos())
-            .setMetodoSeleccion(new SeleccionRuleta())
             .setMetodoCruce(new CruceInterno(0.3))
             .setReporteador(new ReporteTimetable());
         

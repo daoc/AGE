@@ -14,16 +14,17 @@ public class GeneracionUnicos implements Generacion {
     
     /**
      * 
-     * se generarán valores entre [0 - poblacion.getNumAtributos()[
+     * se generarán valores entre [minValorAtributo - maxValorAtributo]
      * ningún valor de los atributos se puede repetir en un individuo
+     * Es imprescindible que el tamaño del rango sea mayor o igual que el número de atributos
      */    
     @Override
     public List<Individuo> generarPoblacionInicial(Poblacion poblacion) {
         List<Individuo> poblacionInicial = new ArrayList<>(poblacion.getNumIndividuos());
         
-        //Crea arreglo con los valores únicos entre [0 - N[
+        //Crea arreglo con los valores únicos entre [min - max]
         int[] valoresBase = new int[poblacion.getNumAtributos()];
-        for(int i = 0; i < valoresBase.length; i++) {
+        for(int i = poblacion.getMinValorAtributo(); i <= poblacion.getMaxValorAtributo(); i++) {
             valoresBase[i] = i;
         }  
         

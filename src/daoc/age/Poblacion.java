@@ -20,6 +20,8 @@ public class Poblacion {
     // Parámetros
     private Integer numIndividuos;
     private Integer numAtributos;
+    private Integer minValorAtributo;
+    private Integer maxValorAtributo;
     private double probMutacion;
     private double tasaElitismo;
     private FuncionAptitud f;    
@@ -34,8 +36,20 @@ public class Poblacion {
     
     public Poblacion() {
         random = new Random();
-        setReporteador(new Reporte());//Reporteador por defecto. Puede reemplazarlo por otro.
+        setDefaults();
         tiempoInicio = System.currentTimeMillis();
+    }
+    
+    //Valores por defecto
+    private void setDefaults() {
+        //setMaxTiempoCalculo(0, 1, 0);
+        setMetodoCruce(new CrucePareja());
+        setMetodoGeneracion(new GeneracionLibre());
+        setMetodoSeleccion(new SeleccionRuleta());
+        setNumIndividuos(100);
+        setProbabilidadMutacion(0.01);
+        setReporteador(new Reporte());
+        setTasaElitismo(0.05);
     }
     
     //Procesamiento
@@ -126,11 +140,28 @@ public class Poblacion {
         return this;
     }        
     
+    public Poblacion setAtributos(int numAtributos, int valorMinimo, int valorMaximo) {
+        this.numAtributos = numAtributos;
+        this.minValorAtributo = valorMinimo;
+        this.maxValorAtributo = valorMaximo;
+        return this;
+    }     
+    
     public Poblacion setNumAtributos(int numAtributos) {
         this.numAtributos = numAtributos;
         return this;
     }    
         
+    public Poblacion setMinValorAtributo(int minValorAtributo) {
+        this.minValorAtributo = minValorAtributo;
+        return this;
+    }      
+    
+    public Poblacion setMaxValorAtributo(int maxValorAtributo) {
+        this.maxValorAtributo = maxValorAtributo;
+        return this;
+    }     
+    
     public Poblacion setProbabilidadMutacion(double probMutacion) {
         this.probMutacion = probMutacion;
         return this;
@@ -196,6 +227,15 @@ public class Poblacion {
     public Integer getNumAtributos() {
         return numAtributos;
     }
+    
+    public Integer getMinValorAtributo() {
+        return minValorAtributo;
+    }      
+    
+    public Integer getMaxValorAtributo() {
+        return maxValorAtributo;
+    }      
+         
     
     public double getProbMutacion() {
         return probMutacion;

@@ -9,19 +9,14 @@ import daoc.age.Individuo;
  * @author dordonez@ute.edu.ec
  */
 public class FuncionAptitudNReinas implements FuncionAptitud {
-    private final int N;
-
-    public FuncionAptitudNReinas(int numReinas) {
-        N = numReinas;
-    }
 
     @Override
     public int aptitudIndividuo(Individuo individuo) {
         int colisiones = 0;
         int[] atributos = individuo.getAtributos();
-        for (int i = 0; i < N - 1; i++) {
+        for (int i = 0; i < atributos.length; i++) {
             int reina = atributos[i];
-            for (int j = i + 1; j < N; j++) {
+            for (int j = i + 1; j < atributos.length; j++) {
                 int vecina = atributos[j];
                 // horizontal derecha
                 if (reina == vecina) {
