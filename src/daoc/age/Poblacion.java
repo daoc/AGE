@@ -26,6 +26,7 @@ public class Poblacion {
     private double tasaElitismo;
     private FuncionAptitud f;    
     private Generacion generacion;
+    private Filtro filtro;
     private Seleccion seleccion;
     private Cruce cruce;
     private Reporte reporte;
@@ -36,20 +37,21 @@ public class Poblacion {
     
     public Poblacion() {
         random = new Random();
-        setDefaults();
         tiempoInicio = System.currentTimeMillis();
+        setDefaults();
     }
     
     //Valores por defecto
     private void setDefaults() {
-        //setMaxTiempoCalculo(0, 1, 0);
         setMetodoCruce(new CrucePareja());
         setMetodoGeneracion(new GeneracionLibre());
         setMetodoSeleccion(new SeleccionRuleta());
+        setFiltro(null);
         setNumIndividuos(100);
         setProbabilidadMutacion(0.01);
         setReporteador(new Reporte());
         setTasaElitismo(0.05);
+        setMaxTiempoCalculo(0, 1, 0);
     }
     
     //Procesamiento
@@ -58,11 +60,13 @@ public class Poblacion {
         poblacion = new ArrayList<>(numIndividuos);
         elite = new ArrayList<>();
         generarPoblacion();
+        filtrarPoblacion();
         evaluarPoblacion();
         while(!isCondicionFinAlcanzada()) {
             seleccionarPoblacion();
             cruzarIndividuos();
             mutarIndividuos();
+            filtrarPoblacion();
             evaluarPoblacion();
         }
         reporte.reportarFinal();
@@ -192,6 +196,12 @@ public class Poblacion {
         return this;
     }     
         
+
+    public Poblacion setFiltro(Filtro filtro) {
+        this.filtro = filtro;
+        return this;
+    }    
+    
     public final Poblacion setReporteador(Reporte reporte) {
         reporte.setPoblacion(this);
         this.reporte = reporte;
@@ -236,7 +246,6 @@ public class Poblacion {
         return maxValorAtributo;
     }      
          
-    
     public double getProbMutacion() {
         return probMutacion;
     }
@@ -260,6 +269,10 @@ public class Poblacion {
     public Cruce getMetodoCruce() {
         return cruce;
     }           
+    
+    public Filtro getFiltro() {
+        return filtro;
+    }
     
     //Obtener información del entorno o del estado del trabajo
         
@@ -286,5 +299,13 @@ public class Poblacion {
     public long getTiempoCalculo() {
         return System.currentTimeMillis() - tiempoInicio;
     }
+
+    private void filtrarPoblacion() {
+        if(filtro == null) {
+            return;
+        }
+        poblacion = filtro.filtrarAtributosPoblacion(this);
+    }
+
          
 }

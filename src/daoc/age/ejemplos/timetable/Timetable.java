@@ -1,11 +1,9 @@
 
 package daoc.age.ejemplos.timetable;
 
-import daoc.age.CruceInterno;
-import daoc.age.GeneracionUnicos;
+import daoc.age.FiltroAtributosUnicos;
 import daoc.age.Individuo;
 import daoc.age.Poblacion;
-import daoc.age.SeleccionRuleta;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +38,7 @@ public class Timetable {
             .setAtributos(N, 0, N-1)
             .setMetaAptitud(0)                
             .setFuncionAptitud(new FuncionAptitudTimetable())
-            .setMetodoGeneracion(new GeneracionUnicos())
-            .setMetodoCruce(new CruceInterno(0.3))
+            .setFiltro(new FiltroAtributosUnicos())
             .setReporteador(new ReporteTimetable());
         
         poblacion.evolucionar();

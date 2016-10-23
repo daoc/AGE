@@ -16,7 +16,7 @@ public class EncontrarTexto {
      * Cantidad de enteros a ordenar y rango máximo de los enteros: [1 - N].
      * El valor por defecto es 6.
      */
-    public static String TXT = "Este es el texto Karamazov";
+    public static String TXT = "Este es el texto que quiero encontrar";
     /**
      * @param args Si existe args[0] se usa este valor para {@link #N}
      */
@@ -29,7 +29,7 @@ public class EncontrarTexto {
             .setAtributos(TXT.length(), 32, 126)
             .setMetaAptitud(TXT.length())
             .setFuncionAptitud(new FuncionAptitudEncontrarTexto(TXT))
-                .setReporteador(new ReporteEncontrarTexto());
+            .setReporteador(new ReporteEncontrarTexto());
 
         poblacion.evolucionar();
     }

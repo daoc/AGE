@@ -2,6 +2,7 @@
 package daoc.age.ejemplos;
 
 import daoc.age.Reporte;
+import java.util.Arrays;
 
 /**
  *
@@ -22,7 +23,11 @@ public class ReporteEncontrarTexto extends Reporte {
 
     @Override
     public void reportarIteracion() {
-        super.reportarIteracion();
+        System.out.print(
+            String.format(
+                "g:%d; f:%d :: ", 
+                getPoblacion().getNumGeneraciones(), 
+                getPoblacion().getMasApto().getAptitud())); 
         int[] data = getPoblacion().getMasApto().getAtributos();
         for(int i = 0; i < data.length; i++) {
             System.out.print((char)data[i]);

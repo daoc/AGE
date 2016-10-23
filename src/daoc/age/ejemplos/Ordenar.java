@@ -1,6 +1,7 @@
 
 package daoc.age.ejemplos;
 
+import daoc.age.FiltroAtributosUnicos;
 import daoc.age.Poblacion;
 /**
  * Encuentra una lista de N enteros entre [0 - N[, ordenados de menor a mayor.
@@ -16,7 +17,7 @@ public class Ordenar {
      * Cantidad de enteros a ordenar y rango máximo de los enteros: [1 - N].
      * El valor por defecto es 6.
      */
-    public static int N = 6;
+    public static int N = 10;
     /**
      * @param args Si existe args[0] se usa este valor para {@link #N}
      */
@@ -28,6 +29,7 @@ public class Ordenar {
         Poblacion poblacion = new Poblacion()
             .setAtributos(N, 1, N)
             .setMetaAptitud(N)
+            .setFiltro(new FiltroAtributosUnicos())
             .setFuncionAptitud(new FuncionAptitudOrdenar(N));
 
         poblacion.evolucionar();
