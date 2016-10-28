@@ -34,6 +34,7 @@ public class FuncionAptitudTimetable implements FuncionAptitud {
                     Clase c = Timetable.getClase(horario, a, d, h);
                     //las clases con prof=-1 están huecas
                     if (c.getProfesor() >= 0) {
+                        //System.out.println("c.getProfesor() " + c.getProfesor());
                         profesor[c.getProfesor()]++;
                     }
                 }
@@ -59,6 +60,7 @@ public class FuncionAptitudTimetable implements FuncionAptitud {
                     Clase c = Timetable.getClase(horario, a, d, h);
                     //las clases con mat=-1 están huecas
                     if (c.getMateria() >= 0) {
+                        //System.out.println("c.getMateria() " + c.getMateria());
                         materia[c.getMateria()]++;
                     }
                 }

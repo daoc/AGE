@@ -12,9 +12,9 @@ import java.util.List;
  * @author dordonez@ute.edu.ec
  */
 public class Timetable {
-    public final static int PROFS = 15;
-    public final static int MATS = 45;
-    public final static int AULAS = 5;
+    public final static int PROFS = 80;
+    public final static int MATS = 400;
+    public final static int AULAS = 50;
     public final static int DIAS = 5;
     public final static int HORAS = 4;
     public final static int CLASEHUECA = -1;
@@ -51,13 +51,13 @@ public class Timetable {
      */
     private static void creaClases() {
         int materia, profesor;
-        for(int i = 0; i < 90; i++) {
+        for(int i = 0; i < (MATS*2); i++) {//Cada materia se da 2 veces a la semana: MATS*2
             materia = i % MATS;
             profesor = i % PROFS;
             Clase c = new Clase(i, materia, profesor);
             listaClases.add(c);
         }
-        for(int i = 90; i < 100; i++) {
+        for(int i = (MATS*2); i < N; i++) {
             Clase c = new Clase(i, CLASEHUECA, CLASEHUECA);
             listaClases.add(c);
         }        
