@@ -6,14 +6,14 @@ import java.util.List;
 
 /**
  * Genera una población donde los valores de los atributos son un aleatorio
- * entre [0, N[.
+ * entre [minValorAtributo - maxValorAtributo]
  * @author dordonez@ute.edu.ec
  */
 public class GeneracionLibre implements Generacion {
     
     /**
      * Genera una población donde los valores de los atributos son un aleatorio
-     * entre [0, N[.
+     * entre [[minValorAtributo - maxValorAtributo]
      * @param poblacion permite obtener los parámetros generales de la población
      * @return una nueva lista de individuos
      */
@@ -23,9 +23,9 @@ public class GeneracionLibre implements Generacion {
         for(int i = 0; i < poblacion.getNumIndividuos(); i++) {
             int[] atributos = new int[poblacion.getNumAtributos()];
             for(int j = 0; j < atributos.length; j++) {
-                int num = poblacion.random.nextInt(1 + poblacion.getMaxValorAtributo() - poblacion.getMinValorAtributo());
-                num += poblacion.getMinValorAtributo();
-                atributos[j] = num;
+//                int num = poblacion.random.nextInt(1 + poblacion.getMaxValorAtributo() - poblacion.getMinValorAtributo());
+//                num += poblacion.getMinValorAtributo();
+                atributos[j] = generarNuevoValorIndividuo(poblacion, null, j);
             }           
             poblacionInicial.add(new Individuo(atributos));
         }   
@@ -33,17 +33,17 @@ public class GeneracionLibre implements Generacion {
     }
 
     /**
-     * En esta implementación no es relevante ninguno de los parámetros
+     * Calcula un nuevo valor para el atributo e individuo de la población
      * @param poblacion
-     * @param individuo
-     * @param indiceAtributo
-     * @return entero aleatorio entre [0 - maxValorAtributo[
+     * @param individuo no se utiliza en esta implementación
+     * @param indiceAtributo no se utiliza en esta implementación
+     * @return entero aleatorio entre [minValorAtributo - maxValorAtributo]
      */
     @Override
     public int generarNuevoValorIndividuo(Poblacion poblacion, Individuo individuo, int indiceAtributo) {
         int num = poblacion.random.nextInt(1 + poblacion.getMaxValorAtributo() - poblacion.getMinValorAtributo());
         num += poblacion.getMinValorAtributo();
-        individuo.getAtributos()[indiceAtributo] = num;
+        //individuo.getAtributos()[indiceAtributo] = num;
         return num;
     }
     
