@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daoc.age.ejemplos;
+package daoc.age.ejemplos.sudoku;
 
 import daoc.age.Individuo;
 import daoc.age.Poblacion;
@@ -20,6 +20,10 @@ import java.util.Set;
 public class RestriccionSudoku implements Restriccion {
     private Map<Integer, Integer> data = new HashMap<>();
     
+    public RestriccionSudoku(Map<Integer, Integer> sudoku ) {
+        data = sudoku;
+    }
+    
     public RestriccionSudoku() {
         data.put(1, 5);data.put(2, 2);data.put(5, 6);
         data.put(9, 1);data.put(10, 6);data.put(12, 9);data.put(17, 4);
@@ -30,7 +34,7 @@ public class RestriccionSudoku implements Restriccion {
         data.put(55, 9);data.put(56, 7);data.put(57, 3);data.put(59, 5);data.put(60, 2);data.put(61, 4);
         data.put(63, 2);data.put(68, 9);data.put(70, 5);data.put(71, 6);
         data.put(75, 1);data.put(78, 9);data.put(79, 7);
-    }
+    }    
     
     @Override
     public boolean hasRestriccion(int indiceAtributo) {

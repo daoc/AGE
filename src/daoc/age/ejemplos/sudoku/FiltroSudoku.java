@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daoc.age.ejemplos;
+package daoc.age.ejemplos.sudoku;
 
 import daoc.age.Filtro;
 import daoc.age.Individuo;

@@ -1,5 +1,5 @@
 
-package daoc.age.ejemplos;
+package daoc.age.ejemplos.sudoku;
 
 import daoc.age.GeneracionRestringida;
 import daoc.age.Poblacion;
@@ -23,7 +23,8 @@ public class Sudoku {
     public static void main(String[] args) {       
         Poblacion poblacion = new Poblacion()
             .setAtributos(N, 1, 9)
-            .setMetaAptitud(0)  
+            .setMetaAptitud(0)
+            .setMaxTiempoCalculo(0, 2, 0)
             .setNumIndividuos(100000)
             //.setFiltro(new FiltroSudoku())
             .setMetodoGeneracion(new GeneracionRestringida(new RestriccionSudoku()))

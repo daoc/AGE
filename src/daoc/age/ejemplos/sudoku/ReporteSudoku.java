@@ -1,5 +1,5 @@
 
-package daoc.age.ejemplos;
+package daoc.age.ejemplos.sudoku;
 
 import daoc.age.Reporte;
 
