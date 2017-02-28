@@ -34,6 +34,13 @@ public class Poblacion {
     private Integer metaAptitud;
     private Integer maxNumGeneraciones;
     private Long maxTiempoCalculo;
+    // Resetear cálculo y población para salir de mínimo local
+    private boolean calcReset;
+    private Integer maxVecesReset;
+    private Integer cuentaVecesReset;
+    private Integer maxIterSinMejoraAntesReset;
+    private Integer cuentaIterSinMejora;
+    private Integer ultimaAptitud;
     
     public Poblacion() {
         random = new Random();
@@ -52,23 +59,31 @@ public class Poblacion {
         setReporteador(new Reporte());
         setTasaElitismo(0.05);
         setMaxTiempoCalculo(0, 1, 0);
+        setParamReset(0, 0);
+        calcReset = false;
+        cuentaVecesReset = 0;
+        ultimaAptitud = -1;
+        cuentaIterSinMejora = 0;
     }
     
     //Procesamiento
     
     public Poblacion evolucionar() {
+        
         poblacion = new ArrayList<>(numIndividuos);
         elite = new ArrayList<>();
-        generarPoblacion();
-        filtrarPoblacion();
-        evaluarPoblacion();
-        while(!isCondicionFinAlcanzada()) {
-            seleccionarPoblacion();
-            cruzarIndividuos();
-            mutarIndividuos();
+        do { 
+            generarPoblacion();
             filtrarPoblacion();
             evaluarPoblacion();
-        }
+            while(!isCondicionFinAlcanzada()) {
+                seleccionarPoblacion();
+                cruzarIndividuos();
+                mutarIndividuos();
+                filtrarPoblacion();
+                evaluarPoblacion();
+            }
+        } while(isReset());
         reporte.reportarFinal();
         return this;
     }
@@ -96,6 +111,27 @@ public class Poblacion {
         if(maxTiempoCalculo != null) {
             if(System.currentTimeMillis() >= maxTiempoCalculo) return true;
         }        
+        //condiciones de reseteo
+        calcReset = false;
+        if( (maxVecesReset > 0) && (maxVecesReset >= cuentaVecesReset) ) {
+            if(getMasApto().getAptitud() == ultimaAptitud) {
+                if(maxIterSinMejoraAntesReset <= ++cuentaIterSinMejora) {
+                    ++cuentaVecesReset;
+                    ultimaAptitud = -1;
+                    cuentaIterSinMejora = 0;
+                    calcReset = true;
+                    System.out.println("RESETEANDO");
+                    return true;
+                }
+            } else {
+                ultimaAptitud = getMasApto().getAptitud();
+                cuentaIterSinMejora = 0;
+            }
+        } else if(maxVecesReset < cuentaVecesReset) {
+            return true;
+        }
+        
+        // por defecto sigue trabajando
         return false;
     }
     
@@ -228,6 +264,22 @@ public class Poblacion {
         return this;
     }     
     
+    public Poblacion setParamReset(int maxVecesReset, int maxIterSinMejoraAntesReset) {
+        this.maxVecesReset = maxVecesReset;
+        this.maxIterSinMejoraAntesReset = maxIterSinMejoraAntesReset;
+        return this;
+    }
+    
+    public Poblacion setMaxVecesReset(int maxVecesReset) {
+        this.maxVecesReset = maxVecesReset;
+        return this;
+    }
+    
+    public Poblacion setMaxIterSinMejoraAntesReset(int maxIterSinMejoraAntesReset) {
+        this.maxIterSinMejoraAntesReset = maxIterSinMejoraAntesReset;
+        return this;
+    }    
+    
     // Obtener información de los parámetros
     
     public Integer getNumIndividuos() {
@@ -272,6 +324,18 @@ public class Poblacion {
     
     public Filtro getFiltro() {
         return filtro;
+    }
+    
+    public Integer getMaxVecesReset() {
+        return maxVecesReset;
+    }
+    
+    public Integer getMaxIterSinMejoraAntesReset() {
+        return maxIterSinMejoraAntesReset;
+    }    
+    
+    private boolean isReset() {
+        return calcReset;
     }
     
     //Obtener información del entorno o del estado del trabajo
