@@ -26,8 +26,8 @@ public class LeeSudokus {
      * @param args Si existe args[0] se toma este valor para {@link #N}
      */
     public static void main(String[] args) {
-        final String fileName = "p096_sudoku.txt";
-        final int tallaMuestra = 10;
+        final String fileName = "3.txt";
+        final int tallaMuestra = 100;
         final List<Map<Integer, Integer>> listaSudokus = Sudoku.leeArchivoSudokus(fileName);
         final int numSudokus = listaSudokus.size();
         final Random r = new Random();
@@ -39,6 +39,7 @@ public class LeeSudokus {
                 .setAtributos(Sudoku.N, 1, 9)
                 .setMetaAptitud(0)
                 .setMaxTiempoCalculo(0, 2, 0)
+                //.setParamReset(5, 20)
                 //.setFiltro(new FiltroSudoku())
                 .setNumIndividuos(100000)
                 .setMetodoGeneracion(
