@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,32 +30,31 @@ import java.util.logging.Logger;
  * los números del 1 al 9 significan casilla ocupada (restricción: no se puede cambiar)
  * @author dordonez@ute.edu.ec
  */
-public class TestSeleccionSudokus {
+public class TestNumThreadsSudoku {
 
     /**
      * @param args Si existe args[0] se toma este valor para {@link #N}
      */
-    public static void main(String[] args) {
-        final String[] FILENAME = {"0.txt", "1.txt", "2.txt", "3.txt", "5.txt"};//, "p096_sudoku.txt"};
+    public static void main(String[] args) throws InterruptedException {
+        final String[] FILENAME = {"0.txt"};//, "1.txt", "2.txt", "3.txt", "5.txt"};//, "p096_sudoku.txt"};
         final int REPETICIONES = 10;
-        final int TALLA_MUESTRA = 100;
+        final int TALLA_MUESTRA = 20;
+        final int NUM_THREADS = 10;
         
-        ExecutorService pool = Executors.newFixedThreadPool(10);
- 
         for(String f : FILENAME) {
             final List<Map<Integer, Integer>> listaSudokus = Sudoku.leeArchivoSudokus(f);
-            for(int r = 0; r < REPETICIONES; r++) {
-                
-                final int[] muestra = new Random().ints(TALLA_MUESTRA, 0, listaSudokus.size()).toArray();
-                
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, new SeleccionRango(), "rep_" + r + "_log_" + f + "_rango.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, new SeleccionRuleta(), "rep_" + r + "_log_" + f + "_ruleta.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, new SeleccionTorneo(0.6), "rep_" + r + "_log_" + f + "_torneo0.6.txt"));
-
+            for(int t = 1; t <= NUM_THREADS; t++) {
+                ExecutorService pool = Executors.newFixedThreadPool(t);
+                for(int r = 1; r <= t * 2; r++) { 
+                    final int[] muestra = new Random().ints(TALLA_MUESTRA, 0, listaSudokus.size()).toArray();
+                    pool.execute(new ThreadTestSudoku(muestra, listaSudokus, new SeleccionRuleta(), "threadnum_" + t + "_rep_" + r + "_log_" + f + "_ruleta.txt")); 
+                }
+                pool.shutdown();
+                System.out.println(pool.awaitTermination(100, TimeUnit.MINUTES));
             }
         }
         
-        pool.shutdown();
+        
         System.out.println("Enviados trabajos !!!!!");
     }
     
@@ -121,7 +121,7 @@ public class TestSeleccionSudokus {
                         getPoblacion().getMasApto().getAptitud()));
                 log.flush();
             } catch (IOException ex) {
-                Logger.getLogger(TestSeleccionSudokus.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TestNumThreadsSudoku.class.getName()).log(Level.SEVERE, null, ex);
             }
         }        
         
