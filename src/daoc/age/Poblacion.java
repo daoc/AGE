@@ -52,7 +52,7 @@ public class Poblacion {
     private void setDefaults() {
         setMetodoCruce(new CrucePareja());
         setMetodoGeneracion(new GeneracionLibre());
-        setMetodoSeleccion(new SeleccionRuleta());
+        setMetodoSeleccion(new SeleccionTorneo());
         setFiltro(null);
         setNumIndividuos(100);
         setProbabilidadMutacion(0.01);

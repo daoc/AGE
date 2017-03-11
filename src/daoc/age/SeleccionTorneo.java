@@ -13,6 +13,10 @@ import java.util.List;
 public class SeleccionTorneo extends Seleccion {
     private double probSeleccionMasApto;
     
+    public SeleccionTorneo() {
+        this(0.7);
+    }
+    
     /**
      * 
      * @param probSeleccionMasApto probabilidad de seleccionar al individuo
