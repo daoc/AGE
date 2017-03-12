@@ -20,7 +20,7 @@ public class FusionTestFiles {
     public static void main(String[] args) throws IOException {
         ///Users/diego/Dropbox/tmp/TestThreads
         
-        File dir = new File("/Users/diego/Dropbox/tmp/TestEstad");
+        File dir = new File("/home/diego/Dropbox/tmp/TestEstad");
         File[] file = dir.listFiles();
         for(File f : file) {
             String fileName = f.getName() + ";";
