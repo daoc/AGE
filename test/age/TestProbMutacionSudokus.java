@@ -37,9 +37,9 @@ public class TestProbMutacionSudokus {
      */
     public static void main(String[] args) {
         //final String[] FILENAME = {"0.txt", "1.txt", "2.txt", "3.txt", "5.txt"};//, "p096_sudoku.txt"};
-        final String[] FILENAME = {"1.txt", "2.txt"};
-        final int REPETICIONES = 3;
-        final int TALLA_MUESTRA = 50;
+        final String[] FILENAME = {"0.txt", "1.txt"};
+        final int REPETICIONES = 1;
+        final int TALLA_MUESTRA = 40;
         
         ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
  
@@ -49,12 +49,12 @@ public class TestProbMutacionSudokus {
                 final int[] muestra = new Random().ints(TALLA_MUESTRA, 0, listaSudokus.size()).toArray();
                 //final int[] muestra = IntStream.range(0, TALLA_MUESTRA).toArray();
                 
+                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.00, "rep_" + r + "_log_" + f + "_muta0.00.txt"));
+                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.002, "rep_" + r + "_log_" + f + "_muta0.002.txt"));
+                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.004, "rep_" + r + "_log_" + f + "_muta0.004.txt"));
+                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.006, "rep_" + r + "_log_" + f + "_muta0.006.txt"));
+                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.008, "rep_" + r + "_log_" + f + "_muta0.008.txt"));
                 pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.01, "rep_" + r + "_log_" + f + "_muta0.01.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.025, "rep_" + r + "_log_" + f + "_muta0.025.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.05, "rep_" + r + "_log_" + f + "_muta0.05.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.1, "rep_" + r + "_log_" + f + "_muta0.1.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.2, "rep_" + r + "_log_" + f + "_muta0.2.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.25, "rep_" + r + "_log_" + f + "_muta0.25.txt"));
 
             }
         }
