@@ -42,20 +42,16 @@ public class TestProbMutacionSudokus {
         final int TALLA_MUESTRA = 40;
         
         ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
- 
+        final double[] muta = {0.0, 0.002, 0.004, 0.006, 0.008, 0.01, 0.012, 0.014, 0.016, 0.018};
         for(String f : FILENAME) {
             final List<Map<Integer, Integer>> listaSudokus = Sudoku.leeArchivoSudokus(f);
+            
             for(int r = 0; r < REPETICIONES; r++) {
                 final int[] muestra = new Random().ints(TALLA_MUESTRA, 0, listaSudokus.size()).toArray();
                 //final int[] muestra = IntStream.range(0, TALLA_MUESTRA).toArray();
-                
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.00, "rep_" + r + "_log_" + f + "_muta0.00.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.002, "rep_" + r + "_log_" + f + "_muta0.002.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.004, "rep_" + r + "_log_" + f + "_muta0.004.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.006, "rep_" + r + "_log_" + f + "_muta0.006.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.008, "rep_" + r + "_log_" + f + "_muta0.008.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.01, "rep_" + r + "_log_" + f + "_muta0.01.txt"));
-
+                for(double d : muta) {
+                   pool.execute(new ThreadTestSudoku(muestra, listaSudokus, d, "muta_" + d + "_dset_" + f + "_.txt"));
+                }
             }
         }
         
