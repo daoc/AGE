@@ -37,25 +37,20 @@ public class TestProbElitismoSudokus {
      */
     public static void main(String[] args) {
         //final String[] FILENAME = {"0.txt", "1.txt", "2.txt", "3.txt", "5.txt"};//, "p096_sudoku.txt"};
-        final String[] FILENAME = {"1.txt", "2.txt"};
-        final int REPETICIONES = 3;
-        final int TALLA_MUESTRA = 50;
+        final String[] FILENAME = {"0.txt", "1.txt"};
+        final int REPETICIONES = 1;
+        final int TALLA_MUESTRA = 40;
         
         ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
- 
+        final double[] elites = {0.05, 0.1, 0.15, 0,2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5};
         for(String f : FILENAME) {
             final List<Map<Integer, Integer>> listaSudokus = Sudoku.leeArchivoSudokus(f);
             for(int r = 0; r < REPETICIONES; r++) {
                 final int[] muestra = new Random().ints(TALLA_MUESTRA, 0, listaSudokus.size()).toArray();
                 //final int[] muestra = IntStream.range(0, TALLA_MUESTRA).toArray();
-                
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.01, "rep_" + r + "_log_" + f + "_elite0.01.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.025, "rep_" + r + "_log_" + f + "_elite0.025.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.05, "rep_" + r + "_log_" + f + "_elite0.05.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.1, "rep_" + r + "_log_" + f + "_elite0.1.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.2, "rep_" + r + "_log_" + f + "_elite0.2.txt"));
-                pool.execute(new ThreadTestSudoku(muestra, listaSudokus, 0.25, "rep_" + r + "_log_" + f + "_elite0.25.txt"));
-
+                for(double d : elites) {
+                    pool.execute(new ThreadTestSudoku(muestra, listaSudokus, d, "elite_" + d + "_dset_" + f + "_.txt"));
+                }
             }
         }
         
