@@ -42,7 +42,7 @@ public class TestProbElitismoSudokus {
         final int TALLA_MUESTRA = 40;
         
         ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
-        final double[] elites = {0.05, 0.1, 0.15, 0,2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5};
+        final double[] elites = {0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5};
         for(String f : FILENAME) {
             final List<Map<Integer, Integer>> listaSudokus = Sudoku.leeArchivoSudokus(f);
             for(int r = 0; r < REPETICIONES; r++) {
