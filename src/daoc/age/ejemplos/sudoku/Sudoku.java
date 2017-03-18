@@ -33,7 +33,7 @@ public class Sudoku {
      */
     public static void main(String[] args) {
         final String fileName = "p096_sudoku.txt";
-        final int idx = 0;
+        final int idx = 2;
         
         Poblacion poblacion = new Poblacion()
             .setAtributos(N, 1, 9)
@@ -46,7 +46,6 @@ public class Sudoku {
                 new GeneracionRestringida(
                     new RestriccionSudoku(leeArchivoSudokus(fileName).get(idx))))
             .setFuncionAptitud(new FuncionAptitudSudoku())
-            .setMetodoSeleccion(new SeleccionTorneo(.51))
             .setReporteador(new ReporteSudoku());
         
         poblacion.evolucionar();

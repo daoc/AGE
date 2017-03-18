@@ -55,9 +55,9 @@ public class Poblacion {
         setMetodoSeleccion(new SeleccionTorneo());
         setFiltro(null);
         setNumIndividuos(100);
-        setProbabilidadMutacion(0.01);
+        setProbabilidadMutacion(0.002);
         setReporteador(new Reporte());
-        setTasaElitismo(0.05);
+        setTasaElitismo(0.25);
         setMaxTiempoCalculo(0, 1, 0);
         setParamReset(0, 0);
         calcReset = false;

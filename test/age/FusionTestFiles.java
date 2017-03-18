@@ -18,9 +18,9 @@ import java.nio.file.Paths;
 public class FusionTestFiles {
     
     public static void main(String[] args) throws IOException {
-        ///Users/diego/Dropbox/tmp/TestThreads
-        
-        File dir = new File("/home/diego/Dropbox/tmp/TestEstad");
+        String homeDir = System.getProperty("user.home");
+        File dir = new File(homeDir + "/Dropbox/tmp/TestMuta");
+        //System.out.println(dir);
         File[] file = dir.listFiles();
         for(File f : file) {
             String fileName = f.getName() + ";";
