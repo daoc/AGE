@@ -2,9 +2,7 @@
 package daoc.age.ejemplos.sudoku;
 
 import daoc.age.GeneracionRestringida;
-import daoc.age.Poblacion;
 import daoc.age.PoblacionParalela;
-import daoc.age.SeleccionTorneo;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,8 +10,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -34,9 +30,9 @@ public class SudokuParalelo {
      */
     public static void main(String[] args) {
         final String fileName = "p096_sudoku.txt";
-        final int idx = 2;
+        final int idx = 0;
         
-        PoblacionParalela poblacion = new PoblacionParalela(6)
+        PoblacionParalela poblacion = new PoblacionParalela(5)
             .setAtributos(N, 1, 9)
             .setMetaAptitud(0)
             .setMaxTiempoCalculo(0, 4, 0)
@@ -50,7 +46,6 @@ public class SudokuParalelo {
             .setReporteador(new ReporteSudoku());
         
         poblacion.evolucionar();
-        //poblacion.evolucionarParalelo(2);
     }
     
     /**
