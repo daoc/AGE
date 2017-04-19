@@ -10,7 +10,7 @@ package daoc.age;
  * @author diego
  */
 public class GeneracionRestringida extends GeneracionLibre {
-    Restriccion restriccion;
+    final Restriccion restriccion;
     
     public GeneracionRestringida(Restriccion restriccion) {
         this.restriccion = restriccion;

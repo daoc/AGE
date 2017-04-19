@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author dordonez@ute.edu.ec
  */
-public class Poblacion {
+public class Poblacion implements Cloneable{
     // General
     public final Random random;
     private List<Individuo> poblacion;
@@ -67,6 +71,23 @@ public class Poblacion {
     }
     
     //Procesamiento
+    
+    public Poblacion evolucionarParalelo(int numHilos) {
+        ExecutorService pool = Executors.newFixedThreadPool(numHilos);
+        
+        try {
+            for(int i = 0; i < numHilos; i++) {
+                final Poblacion dos = (Poblacion) this.clone();
+                pool.execute(() -> {
+                    dos.getReporteador().setPoblacion(dos);
+                    dos.evolucionar();
+                });
+            };
+        } catch (CloneNotSupportedException ex) {
+            ex.printStackTrace();
+        }
+        return this;
+    }
     
     public Poblacion evolucionar() {
         
@@ -325,6 +346,10 @@ public class Poblacion {
     public Filtro getFiltro() {
         return filtro;
     }
+    
+    public Reporte getReporteador() {
+        return reporte;
+    }    
     
     public Integer getMaxVecesReset() {
         return maxVecesReset;

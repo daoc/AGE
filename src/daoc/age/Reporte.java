@@ -4,12 +4,14 @@ package daoc.age;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Diego
  */
-public class Reporte {
+public class Reporte implements Cloneable {
     private Poblacion poblacion;
 
     public final void setPoblacion(Poblacion poblacion) {
@@ -42,5 +44,14 @@ public class Reporte {
                 hms,
                 poblacion.getMasApto().getAptitud(), 
                 Arrays.toString(poblacion.getMasApto().getAtributos())));         
+    }
+    
+    public Reporte copiar() {
+        try {
+            return (Reporte) this.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Reporte.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 }

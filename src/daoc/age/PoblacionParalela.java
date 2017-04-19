@@ -1,109 +1,130 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package daoc.age;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  *
  * @author diego
  */
-public class PoblacionParalela extends Poblacion {
-
-    @Override
-    public Poblacion setMaxIterSinMejoraAntesReset(int maxIterSinMejoraAntesReset) {
-        return super.setMaxIterSinMejoraAntesReset(maxIterSinMejoraAntesReset); //To change body of generated methods, choose Tools | Templates.
+public class PoblacionParalela {
+    private final int numHilos;
+    private final List<Poblacion> lista;
+    
+    public PoblacionParalela(int numHilos) {
+        this.numHilos = numHilos;
+        lista = new ArrayList<>();
+        for(int i = 0; i < numHilos; i++) {
+            lista.add(new Poblacion());
+        }
+    }
+    
+    public PoblacionParalela setMaxIterSinMejoraAntesReset(int maxIterSinMejoraAntesReset) {
+        lista.stream().forEach(p -> p.setMaxIterSinMejoraAntesReset(maxIterSinMejoraAntesReset));
+        return this;
     }
 
-    @Override
-    public Poblacion setMaxVecesReset(int maxVecesReset) {
-        return super.setMaxVecesReset(maxVecesReset); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setMaxVecesReset(int maxVecesReset) {
+        lista.stream().forEach(p -> p.setMaxVecesReset(maxVecesReset));
+        return this;
     }
 
-    @Override
-    public Poblacion setParamReset(int maxVecesReset, int maxIterSinMejoraAntesReset) {
-        return super.setParamReset(maxVecesReset, maxIterSinMejoraAntesReset); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setParamReset(int maxVecesReset, int maxIterSinMejoraAntesReset) {
+        lista.stream().forEach(p -> p.setParamReset(maxVecesReset, maxIterSinMejoraAntesReset));
+        return this;
     }
 
-    @Override
-    public Poblacion setMaxTiempoCalculo(int horas, int minutos, int segundos) {
-        return super.setMaxTiempoCalculo(horas, minutos, segundos); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setMaxTiempoCalculo(int horas, int minutos, int segundos) {
+        lista.stream().forEach(p -> p.setMaxTiempoCalculo(horas, minutos, segundos));
+        return this;
     }
 
-    @Override
-    public Poblacion setMaxNumGeneraciones(int maxNumIteraciones) {
-        return super.setMaxNumGeneraciones(maxNumIteraciones); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setMaxNumGeneraciones(int maxNumIteraciones) {
+        lista.stream().forEach(p -> p.setMaxNumGeneraciones(maxNumIteraciones));
+        return this;
     }
 
-    @Override
-    public Poblacion setMetaAptitud(int metaAptitud) {
-        return super.setMetaAptitud(metaAptitud); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setMetaAptitud(int metaAptitud) {
+        lista.stream().forEach(p -> p.setMetaAptitud(metaAptitud));
+        return this;
     }
 
-    @Override
-    public Poblacion setFiltro(Filtro filtro) {
-        return super.setFiltro(filtro); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setFiltro(Filtro filtro) {
+        lista.stream().forEach(p -> p.setFiltro(filtro));
+        return this;
     }
 
-    @Override
-    public Poblacion setMetodoCruce(Cruce cruce) {
-        return super.setMetodoCruce(cruce); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setMetodoCruce(Cruce cruce) {
+        lista.stream().forEach(p -> p.setMetodoCruce(cruce));
+        return this;
     }
 
-    @Override
-    public Poblacion setMetodoSeleccion(Seleccion seleccion) {
-        return super.setMetodoSeleccion(seleccion); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setMetodoSeleccion(Seleccion seleccion) {
+        lista.stream().forEach(p -> p.setMetodoSeleccion(seleccion));
+        return this;
     }
 
-    @Override
-    public Poblacion setMetodoGeneracion(Generacion generacion) {
-        return super.setMetodoGeneracion(generacion); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setMetodoGeneracion(Generacion generacion) {
+        lista.stream().forEach(p -> p.setMetodoGeneracion(generacion));
+        return this;
     }
 
-    @Override
-    public Poblacion setFuncionAptitud(FuncionAptitud f) {
-        return super.setFuncionAptitud(f); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setFuncionAptitud(FuncionAptitud f) {
+        lista.stream().forEach(p -> p.setFuncionAptitud(f));
+        return this;
     }
 
-    @Override
-    public Poblacion setTasaElitismo(double tasaElitismo) {
-        return super.setTasaElitismo(tasaElitismo); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setTasaElitismo(double tasaElitismo) {
+        lista.stream().forEach(p -> p.setTasaElitismo(tasaElitismo));
+        return this;
     }
 
-    @Override
-    public Poblacion setProbabilidadMutacion(double probMutacion) {
-        return super.setProbabilidadMutacion(probMutacion); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setProbabilidadMutacion(double probMutacion) {
+        lista.stream().forEach(p -> p.setProbabilidadMutacion(probMutacion));
+        return this;
     }
 
-    @Override
-    public Poblacion setMaxValorAtributo(int maxValorAtributo) {
-        return super.setMaxValorAtributo(maxValorAtributo); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setMaxValorAtributo(int maxValorAtributo) {
+        lista.stream().forEach(p -> p.setMaxValorAtributo(maxValorAtributo));
+        return this;
     }
 
-    @Override
-    public Poblacion setMinValorAtributo(int minValorAtributo) {
-        return super.setMinValorAtributo(minValorAtributo); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setMinValorAtributo(int minValorAtributo) {
+        lista.stream().forEach(p -> p.setMinValorAtributo(minValorAtributo));
+        return this;
     }
 
-    @Override
-    public Poblacion setNumAtributos(int numAtributos) {
-        return super.setNumAtributos(numAtributos); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setNumAtributos(int numAtributos) {
+        lista.stream().forEach(p -> p.setNumAtributos(numAtributos));
+        return this;
     }
 
-    @Override
-    public Poblacion setAtributos(int numAtributos, int valorMinimo, int valorMaximo) {
-        return super.setAtributos(numAtributos, valorMinimo, valorMaximo); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setAtributos(int numAtributos, int valorMinimo, int valorMaximo) {
+        lista.stream().forEach(p -> p.setAtributos(numAtributos, valorMinimo, valorMaximo));
+        return this;
     }
 
-    @Override
-    public Poblacion setNumIndividuos(int numIndividuos) {
-        return super.setNumIndividuos(numIndividuos); //To change body of generated methods, choose Tools | Templates.
+    public PoblacionParalela setNumIndividuos(int numIndividuos) {
+        lista.stream().forEach(p -> p.setNumIndividuos(numIndividuos));
+        return this;
     }
 
-    @Override
-    public Poblacion evolucionar() {
-        return super.evolucionar(); //To change body of generated methods, choose Tools | Templates.
+    public final PoblacionParalela setReporteador(Reporte reporte) {
+        lista.stream().forEach(p -> p.setReporteador(reporte.copiar()));
+        return this;
+    }     
+    
+    public PoblacionParalela evolucionar() {
+        ExecutorService pool = Executors.newFixedThreadPool(numHilos);
+        
+        for(int i = 0; i < lista.size(); i++) {
+            pool.execute(lista.get(i)::evolucionar);
+        };
+            
+        return this;        
     }
     
 }

@@ -3,6 +3,7 @@ package daoc.age.ejemplos.sudoku;
 
 import daoc.age.GeneracionRestringida;
 import daoc.age.Poblacion;
+import daoc.age.PoblacionParalela;
 import daoc.age.SeleccionTorneo;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
  * Reporteador: {@link ReporteSudoku} <br>
  * @author dordonez@ute.edu.ec
  */
-public class Sudoku {
+public class SudokuParalelo {
     /**
      * Número de casillas en el tablero de Sudoku: 9 * 9 = 81
      */
@@ -35,7 +36,7 @@ public class Sudoku {
         final String fileName = "p096_sudoku.txt";
         final int idx = 2;
         
-        Poblacion poblacion = new Poblacion()
+        PoblacionParalela poblacion = new PoblacionParalela(6)
             .setAtributos(N, 1, 9)
             .setMetaAptitud(0)
             .setMaxTiempoCalculo(0, 4, 0)
