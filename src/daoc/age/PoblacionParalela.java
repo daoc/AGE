@@ -122,8 +122,8 @@ public class PoblacionParalela {
         
         for(int i = 0; i < lista.size(); i++) {
             pool.execute(lista.get(i)::evolucionar);
-        };
-            
+        }
+           
         return this;        
     }
     

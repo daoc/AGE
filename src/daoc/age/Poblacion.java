@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  *
  * @author dordonez@ute.edu.ec
  */
-public class Poblacion implements Cloneable{
+public class Poblacion implements Cloneable, Runnable {
     // General
     public final Random random;
     private List<Individuo> poblacion;
@@ -394,6 +394,11 @@ public class Poblacion implements Cloneable{
             return;
         }
         poblacion = filtro.filtrarAtributosPoblacion(this);
+    }
+
+    @Override
+    public void run() {
+        this.evolucionar();
     }
 
          
