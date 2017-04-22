@@ -1,5 +1,5 @@
 
-for (var i = 0; i < 6; i++) {
+for (var i = 0; i < NUM_THREADS; i++) {
     poblacion = new Poblacion()
         .setAtributos(9*9, 1, 9)
         .setMetaAptitud(0)
