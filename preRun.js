@@ -17,3 +17,7 @@ function poolExecute(poblacion) {
 }
 
 
+
+for (var i = 0; i < NUM_THREADS; i++) {
+    poblacion = new Poblacion()
+//Debe unirse con script.js
