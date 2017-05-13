@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author dordonez@ute.edu.ec
  */
-public class Poblacion implements Cloneable, Runnable {
+public class Poblacion implements Cloneable, Runnable, Callable<Poblacion> {
     // General
     public final Random random;
     private List<Individuo> poblacion;
@@ -401,5 +402,10 @@ public class Poblacion implements Cloneable, Runnable {
         this.evolucionar();
     }
 
-         
+    @Override
+    public Poblacion call() throws Exception {
+        return this.evolucionar();
+    }
+
+    
 }

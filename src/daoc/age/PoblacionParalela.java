@@ -3,6 +3,7 @@ package daoc.age;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -13,6 +14,10 @@ import java.util.concurrent.Executors;
 public class PoblacionParalela {
     private final int numHilos;
     private final List<Poblacion> lista;
+    
+    public PoblacionParalela() {
+        this(Runtime.getRuntime().availableProcessors() + 1);
+    }
     
     public PoblacionParalela(int numHilos) {
         this.numHilos = numHilos;
@@ -119,9 +124,11 @@ public class PoblacionParalela {
     
     public PoblacionParalela evolucionar() {
         ExecutorService pool = Executors.newFixedThreadPool(numHilos);
+        ExecutorCompletionService<Poblacion> ecs = new ExecutorCompletionService<>(pool);
         
         for(int i = 0; i < lista.size(); i++) {
-            pool.execute(lista.get(i)::evolucionar);
+            //pool.execute(lista.get(i)::evolucionar);
+            ecs.submit(lista.get(i));
         }
            
         return this;        
