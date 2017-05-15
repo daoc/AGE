@@ -112,7 +112,7 @@ public class TestProbMutacionSudokus {
         }
         
         @Override
-        public void reportarFinal() {
+        public String reportarFinal() {
             try {
                 log.write(
                     String.format(
@@ -124,6 +124,7 @@ public class TestProbMutacionSudokus {
             } catch (IOException ex) {
                 Logger.getLogger(TestSeleccionSudokus.class.getName()).log(Level.SEVERE, null, ex);
             }
+            return null;
         }        
         
         @Override

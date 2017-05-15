@@ -31,19 +31,22 @@ public class Reporte implements Cloneable {
                 Arrays.toString(poblacion.getMasApto().getAtributos())));        
     }
     
-    public void reportarFinal() {
+    public String reportarFinal() {
+        String reporte;
         long tiempo = poblacion.getTiempoCalculo();
         String hms = String.format("h%02d:m%02d:s%02d", 
             TimeUnit.MILLISECONDS.toHours(tiempo),
             TimeUnit.MILLISECONDS.toMinutes(tiempo) % 60,
             TimeUnit.MILLISECONDS.toSeconds(tiempo) % 60);
-        System.out.println(
+        reporte = 
             String.format(
                 "Última solución -> Generacion:%d; Tiempo:%s; Aptitud:%d;\n\t %s",
                 poblacion.getNumGeneraciones(),
                 hms,
                 poblacion.getMasApto().getAptitud(), 
-                Arrays.toString(poblacion.getMasApto().getAtributos())));         
+                Arrays.toString(poblacion.getMasApto().getAtributos()));
+        System.out.println(reporte);
+        return reporte;
     }
     
     public Reporte copiar() {

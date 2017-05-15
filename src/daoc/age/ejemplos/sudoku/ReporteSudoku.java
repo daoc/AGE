@@ -10,7 +10,7 @@ import daoc.age.Reporte;
 public class ReporteSudoku extends Reporte {
     
     @Override
-    public void reportarFinal() {
+    public String reportarFinal() {
         super.reportarFinal();
         int counter = 0;
         int[] data = getPoblacion().getMasApto().getAtributos();
@@ -20,6 +20,7 @@ public class ReporteSudoku extends Reporte {
             }
             System.out.println("");
         }
+        return null;
     }
     
 }

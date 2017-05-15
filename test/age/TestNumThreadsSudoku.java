@@ -111,7 +111,7 @@ public class TestNumThreadsSudoku {
         }
         
         @Override
-        public void reportarFinal() {
+        public String reportarFinal() {
             try {
                 log.write(
                     String.format(
@@ -123,6 +123,7 @@ public class TestNumThreadsSudoku {
             } catch (IOException ex) {
                 Logger.getLogger(TestNumThreadsSudoku.class.getName()).log(Level.SEVERE, null, ex);
             }
+            return null;
         }        
         
         @Override

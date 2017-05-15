@@ -56,13 +56,14 @@ public class LeeSudokus {
     public static class ReporteSudokuBatch extends Reporte {
         
         @Override
-        public void reportarFinal() {
+        public String reportarFinal() {
             System.out.println(
                 String.format(
                     "Generacion:%d; Tiempo:%s; Aptitud:%d;",
                     getPoblacion().getNumGeneraciones(),
                     getPoblacion().getTiempoCalculo() / 1000,
-                    getPoblacion().getMasApto().getAptitud()));         
+                    getPoblacion().getMasApto().getAptitud()));  
+            return null;
         }        
         
         @Override

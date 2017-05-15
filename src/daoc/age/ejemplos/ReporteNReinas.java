@@ -11,7 +11,7 @@ public class ReporteNReinas extends Reporte {
     public static final char PUNTO_MEDIO = 183;
     
     @Override
-    public void reportarFinal() {
+    public String reportarFinal() {
         super.reportarFinal();
         int[] data = getPoblacion().getMasApto().getAtributos();
         for(int i = getPoblacion().getMinValorAtributo(); i <= getPoblacion().getMaxValorAtributo(); i++) {
@@ -24,6 +24,7 @@ public class ReporteNReinas extends Reporte {
             }
             System.out.println("");
         }
+        return null;
     }
     
 }

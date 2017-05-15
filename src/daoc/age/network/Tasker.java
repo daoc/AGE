@@ -2,9 +2,18 @@
 package daoc.age.network;
 
 import daoc.age.Poblacion;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
 
 /**
@@ -19,6 +28,9 @@ public class Tasker {
     
     private int numHilos = 5;//esto debe venir de otro lado
     
+    ScriptEngineManager engineManager = new ScriptEngineManager();
+    ScriptEngine engine = engineManager.getEngineByName("nashorn");
+    
     public void initECS() {
         pool = Executors.newFixedThreadPool(numHilos);
         ecs = new ExecutorCompletionService<>(pool);
@@ -27,14 +39,22 @@ public class Tasker {
     public void openTaskReception() {
         conn = new Connection(this);
         conn.openTaskReceiver();
+        
     }
     
     public void addTask(String task) {
-        //send the task to ECS
-        //ecs.submit(task)
-        
-        //receive result from the ECS
-        //send response to Caller
+        try {
+            String script = "";
+            script += "load('nashorn:mozilla_compat.js'); importPackage(Packages.daoc.age); importPackage(Packages.daoc.age.ejemplos.sudoku); ";
+            script += "var fun = function(ecs, pob, task) { pob";
+            script += task + ";";
+            script += "ecs.submit(pob);}";
+            engine.eval(script);
+            Invocable invocable = (Invocable) engine;
+            invocable.invokeFunction("fun", ecs, new Poblacion(), task);
+        } catch (Exception ex) {
+            Logger.getLogger(Tasker.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void sendResponse(String answer) {
@@ -46,6 +66,10 @@ public class Tasker {
     }
     
     public void kill() {
-        
+        pool.shutdown();
+    }
+    
+    public void killNow() {
+        pool.shutdownNow();
     }
 }

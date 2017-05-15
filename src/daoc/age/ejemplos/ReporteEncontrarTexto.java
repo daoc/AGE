@@ -12,13 +12,14 @@ public class ReporteEncontrarTexto extends Reporte {
     public static final char PUNTO_MEDIO = 183;
     
     @Override
-    public void reportarFinal() {
+    public String reportarFinal() {
         super.reportarFinal();
         int[] data = getPoblacion().getMasApto().getAtributos();
         for(int i = 0; i < data.length; i++) {
             System.out.print((char)data[i]);
         }
         System.out.println();
+        return null;
     }
 
     @Override

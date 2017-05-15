@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 public class ReporteTimetable extends Reporte {
     
     @Override
-    public void reportarFinal() {
+    public String reportarFinal() {
         super.reportarFinal();
         try {
             PrintWriter pw = new PrintWriter("mejorhorario.html");
@@ -34,6 +34,7 @@ public class ReporteTimetable extends Reporte {
             pw.flush();
             pw.close();
         } catch(Exception e) {}
+        return null;
     }
     
 }
