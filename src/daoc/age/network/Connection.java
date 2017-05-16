@@ -2,6 +2,8 @@
 package daoc.age.network;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,9 +20,10 @@ public class Connection {
     private final Tasker tasker;
     private ServerSocket serverSocket;
     private Socket socket;
-    private Scanner input;
-    private PrintWriter output;
+    private ObjectInputStream input;
+    private ObjectOutputStream output;
     private Reader reader;
+    private Responder writer;
     
     public Connection(Tasker tasker) {
         this.tasker = tasker;
@@ -30,17 +33,23 @@ public class Connection {
         try {
             serverSocket = new ServerSocket(SERVER_PORT);
             socket = serverSocket.accept();
-            input = new Scanner(socket.getInputStream());
-            output = new PrintWriter(socket.getOutputStream(), true);
+            output = new ObjectOutputStream(socket.getOutputStream());
+            input = new ObjectInputStream(socket.getInputStream());          
             reader = new Reader(input, tasker);
             reader.start();
+            writer = new Responder(tasker);
+            writer.start();
         } catch (IOException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }   
     }
     
-    public void sendResponse(String answer) {
-        output.println(answer);
+    public void sendResponse(Task answer) {
+        try {
+            output.writeObject(answer);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
 }

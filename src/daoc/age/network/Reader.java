@@ -1,6 +1,7 @@
 
 package daoc.age.network;
 
+import java.io.ObjectInputStream;
 import java.util.Scanner;
 
 /**
@@ -9,20 +10,25 @@ import java.util.Scanner;
  */
 public class Reader extends Thread {
     private volatile boolean receiveTasks = true;    
-    private Scanner input;
+    private ObjectInputStream input;
     private Tasker tasker;
     
-    public Reader(Scanner input, Tasker tasker) {
+    public Reader(ObjectInputStream input, Tasker tasker) {
         this.input = input;
         this.tasker = tasker;
     }
     
     @Override
     public void run() {
-        while(input.hasNextLine()) {
-            String task = input.nextLine();
-            tasker.addTask(task);
+        try {
+            while(true) {
+                Task task = (Task) input.readObject();
+                tasker.addTask(task);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         
     }
     

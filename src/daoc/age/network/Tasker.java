@@ -42,22 +42,22 @@ public class Tasker {
         
     }
     
-    public void addTask(String task) {
+    public void addTask(Task task) {
         try {
             String script = "";
             script += "load('nashorn:mozilla_compat.js'); importPackage(Packages.daoc.age); importPackage(Packages.daoc.age.ejemplos.sudoku); ";
-            script += "var fun = function(ecs, pob, task) { pob";
-            script += task + ";";
+            script += "var fun = function(ecs, pob) { pob";
+            script += task.task + ";";
             script += "ecs.submit(pob);}";
             engine.eval(script);
             Invocable invocable = (Invocable) engine;
-            invocable.invokeFunction("fun", ecs, new Poblacion(), task);
+            invocable.invokeFunction("fun", ecs, new Poblacion().setTask(task));
         } catch (Exception ex) {
             Logger.getLogger(Tasker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public void sendResponse(String answer) {
+    public void sendResponse(Task answer) {
         conn.sendResponse(answer);
     }
     

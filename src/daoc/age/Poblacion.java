@@ -1,6 +1,7 @@
 
 package daoc.age;
 
+import daoc.age.network.Task;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -46,6 +47,8 @@ public class Poblacion implements Cloneable, Runnable, Callable<Poblacion> {
     private Integer maxIterSinMejoraAntesReset;
     private Integer cuentaIterSinMejora;
     private Integer ultimaAptitud;
+    // Información de tarea remota
+    private Task task;
     
     public Poblacion() {
         random = new Random();
@@ -397,6 +400,15 @@ public class Poblacion implements Cloneable, Runnable, Callable<Poblacion> {
         poblacion = filtro.filtrarAtributosPoblacion(this);
     }
 
+    public Task getTask() {
+        return task;
+    }
+
+    public Poblacion setTask(Task task) {
+        this.task = task;
+        return this;
+    }
+    
     @Override
     public void run() {
         this.evolucionar();
