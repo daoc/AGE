@@ -51,7 +51,7 @@ public class Tasker {
             script += "ecs.submit(pob);}";
             engine.eval(script);
             Invocable invocable = (Invocable) engine;
-            invocable.invokeFunction("fun", ecs, new Poblacion().setTask(task));
+            //invocable.invokeFunction("fun", ecs, new Poblacion().setTask(task));
         } catch (Exception ex) {
             Logger.getLogger(Tasker.class.getName()).log(Level.SEVERE, null, ex);
         }

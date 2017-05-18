@@ -1,7 +1,8 @@
 
 package daoc.age;
 
-import daoc.age.network.Task;
+import distributed.Task;
+import distributed.Distributable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author dordonez@ute.edu.ec
  */
-public class Poblacion implements Cloneable, Runnable, Callable<Poblacion> {
+public class Poblacion extends Distributable implements Cloneable {
     // General
     public final Random random;
     private List<Individuo> poblacion;
@@ -48,13 +49,20 @@ public class Poblacion implements Cloneable, Runnable, Callable<Poblacion> {
     private Integer cuentaIterSinMejora;
     private Integer ultimaAptitud;
     // Información de tarea remota
-    private Task task;
+    //private Task task;
     
     public Poblacion() {
         random = new Random();
         tiempoInicio = System.currentTimeMillis();
         setDefaults();
     }
+    
+    public Poblacion(Task task) {
+        super(task);
+        random = new Random();
+        tiempoInicio = System.currentTimeMillis();
+        setDefaults();        
+    }    
     
     //Valores por defecto
     private void setDefaults() {
@@ -400,6 +408,7 @@ public class Poblacion implements Cloneable, Runnable, Callable<Poblacion> {
         poblacion = filtro.filtrarAtributosPoblacion(this);
     }
 
+    /*
     public Task getTask() {
         return task;
     }
@@ -408,6 +417,7 @@ public class Poblacion implements Cloneable, Runnable, Callable<Poblacion> {
         this.task = task;
         return this;
     }
+    */
     
     @Override
     public void run() {
@@ -417,6 +427,11 @@ public class Poblacion implements Cloneable, Runnable, Callable<Poblacion> {
     @Override
     public Poblacion call() throws Exception {
         return this.evolucionar();
+    }
+
+    @Override
+    public void configureForCall() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
