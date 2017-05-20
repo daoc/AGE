@@ -12,6 +12,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
 /**
  *
@@ -431,8 +435,18 @@ public class Poblacion extends Distributable implements Cloneable {
 
     @Override
     public void configureForCall() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+            Invocable invocable = (Invocable) engine;
+            String script = "";
+            script += "load('nashorn:mozilla_compat.js'); importPackage(Packages.daoc.age); importPackage(Packages.daoc.age.ejemplos.sudoku); ";
+            script += "var config = function(pob) { ";
+            script += "pob" + getTask().task + ";}";
+            engine.eval(script);
+            invocable.invokeFunction("config", this);
+        } catch (Exception ex) {
+            Logger.getLogger(Poblacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
     
 }
