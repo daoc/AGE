@@ -74,7 +74,7 @@ public class Poblacion extends Distributable implements Cloneable {
         setMetodoGeneracion(new GeneracionLibre());
         setMetodoSeleccion(new SeleccionTorneo());
         setFiltro(null);
-        setNumIndividuos(100);
+        setNumIndividuos(1000);
         setProbabilidadMutacion(0.002);
         setReporteador(new Reporte());
         setTasaElitismo(0.25);
